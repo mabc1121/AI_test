@@ -1,0 +1,2 @@
+# vendored third-party files: keep byte-for-byte (their sha256 is checked by the tests)
+ui/static/*.js -text

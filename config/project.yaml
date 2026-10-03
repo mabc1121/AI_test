@@ -1,0 +1,58 @@
+{
+  "project": {
+    "name": "reusable-trading-template",
+    "version": "2.0.0"
+  },
+  "mode": {
+    "paper_only": true
+  },
+  "ui": {
+    "host": "127.0.0.1",
+    "port": 8890
+  },
+  "runtime": {
+    "directory": "runtime",
+    "database": "runtime/platform.sqlite3"
+  },
+  "trade": {
+    "file": "trade/trade.py",
+    "starting_equity_usd": 10000.0
+  },
+  "think": {
+    "interval_hours": 4,
+    "pool_size": 6,
+    "candidate_min_hours": 24,
+    "candidate_min_closed_trades": 30,
+    "champion_min_hours": 72,
+    "champion_min_closed_trades": 100
+  },
+  "agents": {
+    "default_provider": "mock",
+    "manage": {
+      "model": "gpt-5.6-sol",
+      "reasoning": "medium",
+      "response_detail": "normal",
+      "tool_autonomy": "balanced",
+      "web_research": "automatic",
+      "budget": "standard"
+    },
+    "think": {
+      "model": "gpt-5.6-sol",
+      "reasoning": "high",
+      "response_detail": "normal",
+      "tool_autonomy": "balanced",
+      "web_research": "automatic",
+      "budget": "standard"
+    }
+  },
+  "market": {
+    "provider": "bitfinex_public_ws",
+    "url": "wss://api-pub.bitfinex.com/ws/2",
+    "symbol": "tBTCUSD",
+    "book_precision": "R0",
+    "book_frequency": "F0",
+    "book_length": 250,
+    "stale_seconds": 5.0,
+    "reconnect_max_seconds": 30
+  }
+}

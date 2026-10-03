@@ -1,0 +1,156 @@
+level-3 features: 47 | level-2 reference features: 18 | ALL: 109
+level-3 coverage (non-NaN share) by day:
+ ts
+2026-09-24 00:00:00+00:00    1.0
+2026-09-25 00:00:00+00:00    1.0
+2026-09-26 00:00:00+00:00    1.0
+2026-09-27 00:00:00+00:00    1.0
+2026-09-28 00:00:00+00:00    1.0
+2026-09-29 00:00:00+00:00    1.0
+2026-09-30 00:00:00+00:00    1.0
+2026-10-01 00:00:00+00:00    1.0
+2026-10-02 00:00:00+00:00    1.0
+2026-10-03 00:00:00+00:00    1.0
+
+H=30: exploration 5170 min, confirmation 6390 min, p_hit threshold 0.619, pred_big share conf 0.33, real_big share conf 0.60, hit AUC of frozen model on conf 0.739
+
+Stage A (exploration) top |IC| in predicted-big subset, H=30:
+ H family          feature  ic_all  auc_all  n_all  ic_pred_big  auc_pred_big  n_pred_big  ic_real_big  auc_real_big  n_real_big
+30     l2         netadd_5   0.106    0.562   5170        0.251         0.626        1724        0.135         0.580        3063
+30     l3  l3_nexec_tot_15  -0.102    0.445   5170       -0.225         0.406        1724       -0.154         0.407        3063
+30     l3 l3_refill_tot_15  -0.089    0.450   5170       -0.224         0.404        1724       -0.129         0.419        3063
+30     l3   l3_nexec_tot_5  -0.109    0.438   5170       -0.205         0.402        1724       -0.148         0.408        3063
+30     l3  l3_refill_tot_5  -0.100    0.438   5170       -0.200         0.401        1724       -0.124         0.415        3063
+30     l2         netadd_1   0.097    0.559   5170        0.195         0.603        1724        0.118         0.575        3063
+30     l2          timb_15  -0.166    0.424   5170       -0.182         0.425        1724       -0.206         0.393        3063
+30     l3  l3_sweep_imb_15  -0.122    0.441   5170       -0.170         0.447        1724       -0.156         0.413        3063
+30     l3   l3_nexec_tot_1  -0.098    0.445   5170       -0.167         0.415        1724       -0.128         0.425        3063
+30     l3  l3_refill_tot_1  -0.094    0.443   5170       -0.159         0.417        1724       -0.111         0.429        3063
+30     l3    l3_old_share3   0.076    0.542   5170        0.155         0.581        1724        0.093         0.552        3063
+30     l3   l3_exec_imb_15  -0.135    0.438   5170       -0.149         0.443        1724       -0.172         0.408        3063
+
+H=60: exploration 5140 min, confirmation 6360 min, p_hit threshold 0.717, pred_big share conf 0.29, real_big share conf 0.59, hit AUC of frozen model on conf 0.740
+
+Stage A (exploration) top |IC| in predicted-big subset, H=60:
+ H family          feature  ic_all  auc_all  n_all  ic_pred_big  auc_pred_big  n_pred_big  ic_real_big  auc_real_big  n_real_big
+60     l2         netadd_5   0.106    0.554   5140        0.291         0.650        1715        0.139         0.579        3208
+60     l3 l3_refill_tot_15  -0.143    0.420   5140       -0.264         0.362        1715       -0.182         0.401        3208
+60     l3  l3_nexec_tot_15  -0.137    0.423   5140       -0.255         0.363        1715       -0.177         0.392        3208
+60     l2         netadd_1   0.095    0.550   5140        0.231         0.614        1715        0.126         0.572        3208
+60     l3   l3_exec_imb_15  -0.144    0.432   5140       -0.225         0.396        1715       -0.191         0.411        3208
+60     l3   l3_nexec_tot_5  -0.114    0.431   5140       -0.225         0.378        1715       -0.150         0.411        3208
+60     l3  l3_refill_tot_5  -0.124    0.430   5140       -0.225         0.382        1715       -0.161         0.417        3208
+60     l2          timb_15  -0.155    0.420   5140       -0.220         0.402        1715       -0.186         0.408        3208
+60     l3   l3_nexec_tot_1  -0.101    0.445   5140       -0.204         0.396        1715       -0.131         0.430        3208
+60     l3  l3_sweep_imb_15  -0.131    0.454   5140       -0.203         0.431        1715       -0.185         0.417        3208
+60     l3  l3_nexec_imb_15  -0.142    0.448   5140       -0.202         0.425        1715       -0.187         0.416        3208
+60     l3  l3_refill_tot_1  -0.109    0.443   5140       -0.199         0.400        1715       -0.144         0.431        3208
+
+=== Stage B1: chosen features on confirmation ===
+ H          feature  sign  expl_ic  expl_auc  conf_ic_pred_big  conf_auc_pred_big conf_days_sign_ok  conf_auc_all  conf_auc_real_big  pass
+30  l3_nexec_tot_15    -1    0.225     0.594             0.056              0.504               3/5         0.497              0.489 False
+30 l3_refill_tot_15    -1    0.224     0.596             0.079              0.519               4/5         0.503              0.498 False
+30   l3_nexec_tot_5    -1    0.205     0.598             0.066              0.516               4/5         0.505              0.501 False
+60 l3_refill_tot_15    -1    0.264     0.638             0.161              0.551               3/5         0.486              0.481 False
+60  l3_nexec_tot_15    -1    0.255     0.637             0.101              0.516               3/5         0.481              0.467 False
+60   l3_exec_imb_15    -1    0.225     0.604            -0.064              0.460               2/5         0.494              0.503 False
+
+=== Stage B2: models on confirmation (AUC; days above 0.5) ===
+ H     train_on     features model  auc_all days>0.5_all  auc_pred_big days>0.5_pred_big  auc_real_big days>0.5_real_big
+30          all      L2(ALL)    gb    0.512          3/5         0.520               3/5         0.507               3/5
+30          all      L2(ALL)    lr    0.534          4/5         0.556               4/5         0.539               3/5
+30          all        L2+L3    gb    0.517          3/5         0.526               3/5         0.514               3/5
+30          all        L2+L3    lr    0.547          5/5         0.558               4/5         0.549               5/5
+30          all       L3only    gb    0.524          4/5         0.538               4/5         0.510               3/5
+30          all       L3only    lr    0.543          4/5         0.534               3/5         0.531               4/5
+30          all L2+L3placebo    gb    0.513          3/5         0.517               3/5         0.513               3/5
+30          all L2+L3placebo    lr    0.525          4/5         0.533               3/5         0.529               3/5
+30     pred_big      L2(ALL)    gb    0.517          3/5         0.534               4/5         0.519               3/5
+30     pred_big      L2(ALL)    lr    0.518          3/5         0.542               3/5         0.519               4/5
+30     pred_big        L2+L3    gb    0.519          2/5         0.562               2/5         0.529               2/5
+30     pred_big        L2+L3    lr    0.523          3/5         0.541               3/5         0.527               3/5
+30     pred_big L2+L3placebo    gb    0.512          3/5         0.527               3/5         0.515               3/5
+30     pred_big L2+L3placebo    lr    0.520          3/5         0.537               3/5         0.516               3/5
+30 frozen Bybit Bybit ALL_gb    gb    0.537          4/5         0.520               2/5         0.534               3/5
+60          all      L2(ALL)    gb    0.529          4/5         0.619               4/5         0.549               4/5
+60          all      L2(ALL)    lr    0.541          4/5         0.617               4/5         0.573               4/5
+60          all        L2+L3    gb    0.529          4/5         0.621               4/5         0.553               4/5
+60          all        L2+L3    lr    0.537          4/5         0.620               4/5         0.572               4/5
+60          all       L3only    gb    0.489          3/5         0.506               2/5         0.502               3/5
+60          all       L3only    lr    0.483          2/5         0.527               2/5         0.500               3/5
+60          all L2+L3placebo    gb    0.529          4/5         0.612               4/5         0.543               4/5
+60          all L2+L3placebo    lr    0.535          4/5         0.615               4/5         0.565               4/5
+60     pred_big      L2(ALL)    gb    0.512          4/5         0.604               4/5         0.518               4/5
+60     pred_big      L2(ALL)    lr    0.541          4/5         0.640               4/5         0.567               4/5
+60     pred_big        L2+L3    gb    0.513          4/5         0.601               4/5         0.519               4/5
+60     pred_big        L2+L3    lr    0.535          4/5         0.635               4/5         0.561               4/5
+60     pred_big L2+L3placebo    gb    0.512          4/5         0.604               4/5         0.522               4/5
+60     pred_big L2+L3placebo    lr    0.527          2/5         0.630               4/5         0.546               3/5
+60 frozen Bybit Bybit ALL_gb    gb    0.542          3/5         0.569               3/5         0.540               3/5
+
+=== Stage B3: trading on confirmation, predicted-big minutes ===
+ H train_on     features model         mode  n_trades  win_rate  gross_bps  net_bps days_pos  t_daily  pass
+30      all      L2(ALL)    gb  overlapping       401      0.47       6.21     2.93      3/5     0.24 False
+30      all      L2(ALL)    gb one_position        32      0.47      -0.10    -3.50      2/5    -0.40 False
+30      all      L2(ALL)    lr  overlapping       742      0.54       3.58     0.41      4/5     0.10 False
+30      all      L2(ALL)    lr one_position        70      0.56       2.82    -0.32      3/5    -0.09 False
+30      all        L2+L3    gb  overlapping       418      0.52       8.16     4.87      3/5     0.38 False
+30      all        L2+L3    gb one_position        35      0.43      -1.93    -5.37      2/5    -0.65 False
+30      all        L2+L3    lr  overlapping       859      0.55       4.89     1.76      4/5     0.47 False
+30      all        L2+L3    lr one_position        75      0.69       8.86     5.69      4/5     1.25 False
+30   frozen Bybit ALL_gb    gb  overlapping       164      0.49      -4.48    -7.38      3/5    -0.95 False
+30   frozen Bybit ALL_gb    gb one_position        24      0.46       0.66    -2.41      2/5    -0.64 False
+60      all      L2(ALL)    gb  overlapping       282      0.67      25.61    22.44      4/5     0.92 False
+60      all      L2(ALL)    gb one_position        18      0.50      -0.99    -3.98      2/5    -0.43 False
+60      all      L2(ALL)    lr  overlapping       767      0.65      12.92     9.70      3/5     0.87 False
+60      all      L2(ALL)    lr one_position        35      0.60       8.39     5.00      2/5     0.37 False
+60      all        L2+L3    gb  overlapping       295      0.66      26.09    22.91      4/5     0.92 False
+60      all        L2+L3    gb one_position        18      0.50       6.07     2.76      2/5     0.17 False
+60      all        L2+L3    lr  overlapping       794      0.64      13.00     9.82      2/5     0.84 False
+60      all        L2+L3    lr one_position        37      0.57       5.44     1.93      2/5     0.14 False
+60   frozen Bybit ALL_gb    gb  overlapping       284      0.69       2.76    -0.39      3/5    -0.02 False
+60   frozen Bybit ALL_gb    gb one_position        14      0.64      -0.63    -3.56      3/5    -0.29 False
+B2 verdict H=30 gb: pred_big AUC L2 0.520 -> L2+L3 0.526 (delta +0.006; placebo delta -0.003) -> FAIL
+B2 verdict H=30 lr: pred_big AUC L2 0.556 -> L2+L3 0.558 (delta +0.002; placebo delta -0.023) -> FAIL
+B2 verdict H=60 gb: pred_big AUC L2 0.619 -> L2+L3 0.621 (delta +0.002; placebo delta -0.007) -> FAIL
+B2 verdict H=60 lr: pred_big AUC L2 0.617 -> L2+L3 0.620 (delta +0.003; placebo delta -0.002) -> FAIL
+
+=== post-hoc, H=30: features by |confirmation IC| in predicted-big subset (sign agreement with exploration) ===
+ H family            feature  expl_ic_pred_big  conf_ic_pred_big  conf_auc_pred_big  conf_days_same_sign  conf_ic_all  max_abs_corr_with_l2  same_sign
+30     l2             ofi_15             0.025             0.127              0.559                    3        0.067                   NaN       True
+30     l2           netadd_5             0.251             0.126              0.548                    4        0.042                   NaN       True
+30     l2              ofi_5             0.017             0.123              0.566                    3        0.078                   NaN       True
+30     l2         l2_tot_imb             0.067            -0.117              0.439                    2       -0.030                   NaN      False
+30     l3    l3_sweep_imb_15            -0.170             0.113              0.544                    3        0.005                 0.416      False
+30     l3 l3_cxlfresh_imb_15            -0.049             0.108              0.565                    2        0.091                 0.480      False
+30     l3   l3_bigcxl_imb_15            -0.078            -0.103              0.477                    2       -0.046                 0.101       True
+30     l2              ofi_1             0.010             0.098              0.552                    3        0.053                   NaN       True
+30     l2          l2_ofi_30             0.039             0.095              0.546                    3        0.051                   NaN       True
+30     l3    l3_bigcxl_imb_5            -0.081            -0.091              0.472                    4       -0.063                 0.039       True
+30     l3      l3_old_share3             0.155             0.087              0.545                    4        0.040                 0.388       True
+30     l3    l3_refill_tot_5            -0.200            -0.086              0.469                    4        0.003                 0.582       True
+30     l2           netadd_1             0.195             0.084              0.534                    3        0.033                   NaN       True
+30     l3    l3_nexec_imb_15            -0.146             0.079              0.531                    3       -0.018                 0.452      False
+30     l3   l3_refill_tot_15            -0.224            -0.079              0.481                    4        0.010                 0.600       True
+level-3 features with same-sign IC in both periods and |conf IC| >= 0.05: 14 of 47 (expected by chance with no signal: about 2); level-2 reference: 6 of 18
+median max |Spearman corr| of a level-3 feature with the closest level-2 feature: 0.343
+
+=== post-hoc, H=60: features by |confirmation IC| in predicted-big subset (sign agreement with exploration) ===
+ H family            feature  expl_ic_pred_big  conf_ic_pred_big  conf_auc_pred_big  conf_days_same_sign  conf_ic_all  max_abs_corr_with_l2  same_sign
+60     l2           netadd_5             0.291             0.246              0.609                    3        0.047                   NaN       True
+60     l2           netadd_1             0.231             0.181              0.580                    3        0.042                   NaN       True
+60     l2         l2_tot_imb             0.014            -0.174              0.385                    2       -0.037                   NaN      False
+60     l3   l3_refill_tot_15            -0.264            -0.161              0.449                    3        0.027                 0.599       True
+60     l3    l3_refill_tot_5            -0.225            -0.158              0.446                    3        0.021                 0.582       True
+60     l3   l3_refill_imb_15             0.024            -0.148              0.425                    2        0.009                 0.247      False
+60     l3    l3_sweep_imb_15            -0.203             0.135              0.544                    2        0.049                 0.417      False
+60     l3    l3_nexec_imb_15            -0.202             0.133              0.549                    1        0.038                 0.452      False
+60     l3    l3_refill_tot_1            -0.199            -0.132              0.452                    3        0.013                 0.444       True
+60     l3     l3_ncxl_imb_15             0.134             0.123              0.585                    2        0.031                 0.306       True
+60     l2              ofi_5             0.069             0.121              0.571                    3        0.063                   NaN       True
+60     l3      l3_old_share3             0.159             0.113              0.547                    3        0.025                 0.386       True
+60     l3 l3_cxlfresh_imb_15            -0.007             0.113              0.585                    1        0.094                 0.480      False
+60     l3     l3_nexec_tot_5            -0.225            -0.112              0.475                    3        0.038                 0.626       True
+60     l3    l3_fresh_share3            -0.142            -0.104              0.460                    3       -0.030                 0.348       True
+level-3 features with same-sign IC in both periods and |conf IC| >= 0.05: 12 of 47 (expected by chance with no signal: about 2); level-2 reference: 6 of 18
+median max |Spearman corr| of a level-3 feature with the closest level-2 feature: 0.343

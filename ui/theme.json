@@ -1,0 +1,47 @@
+{
+  "name": "Northline",
+  "description": "Dark, minimal palette balanced for OLED and standard LCD monitors. ui/ui.py turns this file into CSS variables (--navy, --text, --muted, --up, --down, --brand, --line, --hover, --input, --sans, --mono); change the look here, not in ui.py. tests/test_template.py checks the colours and the contrast.",
+  "colors": {
+    "navy":  {"hex": "#10182B", "portion_pct": 72, "name": "Navy", "use": "Page background, cards, panels, chart area (the ONLY background colour)"},
+    "text":  {"hex": "#ECE6DC", "portion_pct": 12, "name": "Soft ivory", "use": "Prices, headings, main text"},
+    "muted": {"hex": "#A3B5D2", "portion_pct": 8,  "name": "Steel blue", "use": "Secondary text, labels, chart axes, grid lines, borders; 'needs attention' (with a diamond marker)"},
+    "up":    {"hex": "#4DC494", "portion_pct": 3,  "name": "Jade green", "use": "Price up, profit, buy; healthy / ok states"},
+    "down":  {"hex": "#F0677F", "portion_pct": 3,  "name": "Rose red", "use": "Price down, loss, sell, alerts; errors / failed states"},
+    "brand": {"hex": "#F29270", "portion_pct": 2,  "name": "Coral", "use": "Brand accent ONLY: app name / logo, keyboard focus outline"}
+  },
+  "tints": {
+    "line":  {"value": "rgba(163,181,210,0.14)", "use": "Borders and dividers"},
+    "hover": {"value": "rgba(163,181,210,0.09)", "use": "Hover / selected background, code blocks"},
+    "input": {"value": "rgba(163,181,210,0.55)", "use": "Input field borders"},
+    "up_fade":   {"value": "rgba(77,196,148,0.35)", "use": "Chart volume bars for rising candles (faint jade green)"},
+    "down_fade": {"value": "rgba(240,103,127,0.35)", "use": "Chart volume bars for falling candles (faint rose red)"}
+  },
+  "fonts": {
+    "sans": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+  },
+  "sizes": {
+    "s1": "4px", "s2": "8px", "s3": "12px", "s4": "16px", "s5": "24px", "s6": "32px",
+    "r-ctl": "6px", "r-card": "12px", "r-pill": "999px",
+    "h-xs": "28px", "h-sm": "32px", "h-md": "40px", "bar-h": "6px",
+    "fs-sm": "12px", "fs-md": "14px", "fs-lg": "16px", "fs-xl": "20px",
+    "page-max": "1200px", "card-pad": "16px", "card-pad-wide": "20px", "col-min": "300px", "tab-min": "120px",
+    "chat-list-w": "240px", "chart-h": "420px", "chart-h-mobile": "320px"
+  },
+  "sizes_note": "Spacing scale s1..s6, corner radii (controls / cards / pills), control heights, type scale, layout widths. ui/ui.py uses only these (as CSS variables, e.g. var(--s4)); tests/test_template.py checks it.",
+  "chart_fill_opacity": 0.18,
+  "text_on_colored_buttons": "navy",
+  "min_contrast_on_navy": 4.5,
+  "rules": [
+    "Medium saturation: not neon, not washed-out pastel. Must look good on both OLED and standard LCD monitors.",
+    "No pure white (#FFFFFF) and no pure black (#000000).",
+    "One navy only. Separate cards with thin steel-blue borders (tint 'line').",
+    "Green and red are for market meaning (up/down, buy/sell, profit/loss) and for ok / error states. Pair market values with arrows or +/- signs.",
+    "Coral is ONLY for brand: the app name / logo and the keyboard focus outline. Never near prices.",
+    "Text on green, red and coral buttons is navy.",
+    "Focus outline for keyboard users: 2px coral.",
+    "Prices and big numbers use the monospace font; all numbers use tabular digits.",
+    "'Needs attention' is steel blue with a diamond marker; there is no amber.",
+    "Chart fills: a faint green or red fade (about 18% opacity); no other gradients or colours."
+  ]
+}
