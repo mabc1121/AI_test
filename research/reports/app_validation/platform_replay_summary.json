@@ -1,0 +1,87 @@
+{
+ "runtime_dir": "/tmp/claude-0/-home-user-AI-test/d66feaff-159b-55c0-9935-956fbfcdf016/scratchpad/smoke_rt",
+ "sim_from": "2026-09-24 21:21",
+ "sim_to": "2026-09-25 07:21",
+ "wall_seconds": 1910,
+ "messages": 3548255,
+ "integrity_errors": [
+  "1790285924257: pending_evidence_limit",
+  "1790286195599: pending_evidence_limit",
+  "1790286813266: pending_evidence_limit",
+  "1790287437773: pending_evidence_limit",
+  "1790292834573: pending_evidence_limit",
+  "1790294022594: pending_evidence_limit",
+  "1790308326882: pending_evidence_limit"
+ ],
+ "n_integrity_errors": 7,
+ "emulated_reconnects": 7,
+ "health": "healthy",
+ "checksums_verified": 3909,
+ "checksum_mismatches": 0,
+ "minutes_in_history": 600,
+ "status": "active",
+ "model_error": null,
+ "executions": 82,
+ "closed_trades": 39,
+ "open_positions": 4,
+ "max_concurrent_positions": 4,
+ "by_horizon": {
+  "H30": {
+   "n": 17,
+   "net_usd": -8.871697000001152,
+   "wins": 5,
+   "avg_net_bps": -6.181356761101968
+  },
+  "H60": {
+   "n": 14,
+   "net_usd": -6.80959850000072,
+   "wins": 6,
+   "avg_net_bps": -5.75105175045944
+  },
+  "H120": {
+   "n": 6,
+   "net_usd": -9.295839500000584,
+   "wins": 2,
+   "avg_net_bps": -18.336129123000664
+  },
+  "H240": {
+   "n": 2,
+   "net_usd": -6.058456500000175,
+   "wins": 0,
+   "avg_net_bps": -35.874988296609644
+  }
+ },
+ "metrics": {
+  "starting_equity_usd": 10000.0,
+  "equity_usd": 9971.816689499998,
+  "net_pnl_usd": -28.183310500002335,
+  "return_pct": -0.28183310500002334,
+  "gross_profit_usd": 20.544642999999052,
+  "gross_loss_usd": -51.58023450000168,
+  "profit_factor": 0.39830456761491423,
+  "expectancy_usd": -0.795784397435965,
+  "win_rate_pct": 33.33333333333333,
+  "average_win_usd": 1.580357153846081,
+  "average_loss_usd": -1.9838551730769878,
+  "max_drawdown_pct": 0.4368484271794104,
+  "closed_trades": 39,
+  "executions": 82,
+  "accounting_valid": true
+ },
+ "prediction_log_lines": 601,
+ "restarts": 1,
+ "before_restart": {
+  "minutes": 420,
+  "positions": 3,
+  "executions": 51
+ },
+ "after_restart": {
+  "minutes": 420,
+  "positions": 3,
+  "executions": 51,
+  "status": "active",
+  "gapfill_events": 6330,
+  "history_restored_minutes": null
+ },
+ "last_decision": "in_position"
+}

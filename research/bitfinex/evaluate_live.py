@@ -51,7 +51,7 @@ def load(folder):
     if not rows:
         raise SystemExit(f"no prediction lines in {folder}")
     d = pd.json_normalize(rows, sep="_")
-    d = d.drop_duplicates("t", keep="last").sort_values("t").set_index("t")
+    d = d.drop_duplicates("t", keep="first").sort_values("t").set_index("t")   # a restart re-logs (identically) the minutes after the last save
     full = np.arange(d.index.min(), d.index.max() + 60_000, 60_000)
     return d.reindex(full)
 
@@ -86,11 +86,13 @@ def main():
     ap.add_argument("--barrier-k", type=float, default=1.0)
     ap.add_argument("--min-history", type=int, default=240)
     ap.add_argument("--exclude-backfilled", action="store_true")
+    ap.add_argument("--rows-only", action="store_true", help="use minutes with >= 30 rows even before the 12 h the research quality rule needs")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
     d = load(a.log)
     close, high, low, sig = (d[c].to_numpy(float) for c in ("close", "high", "low", "sigma1"))
-    use = d["quality"].fillna(False).astype(bool).to_numpy() & (d["history_min"].fillna(0).to_numpy() >= a.min_history)
+    good = (d["n_rows"].fillna(0).to_numpy() >= 30) if a.rows_only else d["quality"].fillna(False).astype(bool).to_numpy()
+    use = good & (d["history_min"].fillna(0).to_numpy() >= a.min_history)
     if a.exclude_backfilled:
         use &= ~d["backfilled"].fillna(False).astype(bool).to_numpy()
     day = pd.to_datetime(d.index, unit="ms", utc=True).floor("D")

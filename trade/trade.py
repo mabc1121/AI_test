@@ -1124,7 +1124,8 @@ class TradeConfig:
     min_rows_per_minute: int = 30        # research quality rule for a usable minute
 
     # History and logs.
-    carry_gap_seconds: int = 3600        # silent seconds up to this long carry the book forward (research replay rule)
+    carry_gap_seconds: int = 120         # a silent gap up to this long carries the book forward (a reconnect); a longer
+                                         # one (app down) leaves the minutes empty, i.e. missing data (research replay: 3600)
     save_history: int = 1
     save_history_every_minutes: int = 5  # the recordings refill whatever happened after the last save
     max_gapfill_minutes: int = 360       # refill at most this much downtime from the recordings at start-up

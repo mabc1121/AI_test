@@ -1,0 +1,36 @@
+{
+ "minutes_common": 12339,
+ "counts": {
+  "updates": 74277693,
+  "snapshots": 40,
+  "trades": 559889,
+  "bootstrapped": 0
+ },
+ "bars_cols": 98,
+ "bars_cols_mismatch": 0,
+ "feature_cols": 110,
+ "feature_cols_mismatch": 0,
+ "prediction_cols_mismatch": 0,
+ "agreement": {
+  "30": {
+   "p_up_max_abs_diff": 0.0,
+   "p_up_diff_gt_0.001": 0,
+   "p_up_corr": 1.0
+  },
+  "60": {
+   "p_up_max_abs_diff": 0.0,
+   "p_up_diff_gt_0.001": 0,
+   "p_up_corr": 1.0
+  },
+  "120": {
+   "p_up_max_abs_diff": 0.0,
+   "p_up_diff_gt_0.001": 0,
+   "p_up_corr": 1.0
+  },
+  "240": {
+   "p_up_max_abs_diff": 0.0,
+   "p_up_diff_gt_0.001": 0,
+   "p_up_corr": 1.0
+  }
+ }
+}

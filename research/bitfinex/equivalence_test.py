@@ -123,7 +123,7 @@ def main():
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
 
     m = load_trade_module()
-    core = m.ScientificCore(m.TradeConfig(save_history=0, write_prediction_log=0))
+    core = m.ScientificCore(m.TradeConfig(save_history=0, write_prediction_log=0, carry_gap_seconds=3600))   # the replay carried every gap
     core.history_mode, core.history_checked = "off", True
     rows = []
     orig = core._minute_closed
