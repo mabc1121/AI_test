@@ -90,7 +90,9 @@ def test_entry_fee_and_durable_restart():
             event = runtime.last_event
             decision = m.TradeDecision(action="ENTER_LONG", symbol=event.symbol, requested_size=0.1, reason="test")
             record = engine.runtime.broker.execute(decision, event)
-            assert record and record.fee_usd > 0
+            broker = engine.runtime.broker
+            # contract 2.3 (AI_test): the fee is a setting (PAPER_DEFAULTS, Bitfinex 0 bps); older contracts charge 5 bps
+            assert record and abs(record.fee_usd - record.fill_price * 0.1 * getattr(broker, "fee_bps", 5.0) / 1e4) < 1e-12
             engine.runtime.core.position_state[event.symbol] = {"runner": True, "peak_net_bps": 7.0}
             engine.runtime.core.cooldown_until_ms = event.recv_time_ms + 1000
             engine.runtime.persist_callback(engine.runtime)

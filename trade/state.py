@@ -79,7 +79,7 @@ def restore(store, runtime, expected: dict, module) -> bool:
                 raise RecoveryError("starting balance mismatch")
             positions = {k: module.PositionState(**v) for k, v in b["positions"].items()}
             for symbol, position in positions.items():
-                if (symbol != position.symbol or position.side not in {"long", "short"} or
+                if (symbol != (getattr(position, "position_id", None) or position.symbol) or position.side not in {"long", "short"} or
                     not math.isfinite(float(position.size)) or position.size <= 0 or
                     not math.isfinite(float(position.entry_price)) or position.entry_price <= 0):
                     raise RecoveryError("invalid saved position")

@@ -2,6 +2,11 @@
 
 Read this first (people and AI agents). It is the map; each file's own header has the details.
 
+> **AI_test.** This copy of the template runs the multi-horizon forward test described in [README.md](README.md):
+> `trade/trade.py` holds the strategy, `trade/aitest_models.json.gz` its frozen models, and `research/` the study behind
+> it. It uses trade contract **2.3**: costs are settings and several positions can be open at once (see the header of
+> `trade/trade.py`). Everything below about the platform applies unchanged.
+
 This is a **paper-only BTCUSD trading research template**. One template, many apps: each app = this template +
 its own `trade/trade.py` strategy, installed as a separate service with its own user, data, database and UI port.
 Nothing here can trade real money.
@@ -87,13 +92,14 @@ Details:
 
 ## Tests
 
-`python -m tests.run_all` (35 tests). Platform tests use the fixed reference strategy
+`python -m tests.run_all` (39 tests: the template's 35 and the four AI_test tests in `tests/test_aitest.py`). Platform tests use the fixed reference strategy
 `tests/fixtures/reference_trade.py`, so they pass whatever strategy an app runs; tests set the settings they need.
 Run them with a temporary `APP_RUNTIME_DIR` so they never touch live data.
 
 ## Rules
 
-- Paper only. Never change fees, slippage, accounting or PROTECTED blocks.
+- Paper only. In AI_test, fees and slippage are set in `PAPER_DEFAULTS` (contract 2.3). Change them, or any PROTECTED
+  block, only on purpose: re-baseline the 2.3 fingerprints in `trade/validate_trade_contract.py` and run the tests.
 - Secrets never in git, logs, chat or URLs.
 - Promotions (a candidate replacing the champion) always need the user's approval.
 - Research spends at most the daily budget (every AI call counts: studies, reviews, chat).

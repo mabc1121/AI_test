@@ -98,7 +98,10 @@ class TradeEngine:
             return d
         core._apply_event=apply; core.decide=decide
     ENTRY_KEYS=("long_score","short_score","obi_near","persistent_obi","microprice_bias","book_pressure","tfi_fast","tfi_prior","ret_15m_bps","regime",
-                "cost_bps","min_move_bps","reference_high","reference_low","high_10m","low_10m")
+                "cost_bps","min_move_bps","reference_high","reference_low","high_10m","low_10m",
+                # AI_test multi-horizon strategy
+                "history_minutes","quality","sigma1_bps","spread_end_bps","h30_p_hit","h30_score","h60_p_hit","h60_score",
+                "h120_p_hit","h120_score","h240_p_hit","h240_score")
     def _save_entry(self,event,d):
         """Why a trade was entered (features at decision time), keyed by execution timestamp for the Trades tab."""
         try:

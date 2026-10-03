@@ -41,7 +41,16 @@ V22_PROTECTED_HASHES = {
     "PAPER_TRUTH": "de18fab767c6700242e20570f0d792542a1b49aae198f048c45cd1895be2e31f",
     "RUNTIME": "51ca147ba02db05ff44246bcce754883dc0610abb2b7d5ee3924defa3ccfcc1b",
 }
-CONTRACT_HASHES = {"2.0": V2_ORIGINAL_PROTECTED_HASHES, "2.1": V21_PROTECTED_HASHES, "2.2": V22_PROTECTED_HASHES}
+# 2.3 (AI_test): CONTRACT adds position_id to PositionState/ExecutionRecord; PAPER_TRUTH has the costs as settings and
+# keys positions by position_id (several at once); RUNTIME.initialize() calls ScientificCore.on_runtime_initialize().
+# MARKET_DATA is unchanged from 2.2. Re-baseline these four when a protected block is edited on purpose.
+V23_PROTECTED_HASHES = {
+    "CONTRACT": "a8e95359e4479d5c38e9a42205de45b8428301aa83111e810190f46c5ad47da8",
+    "MARKET_DATA": "988f8fd0ba1b82c3051d838169cbac6ee14b0662971725d5e5d5e0d66ffe7279",
+    "PAPER_TRUTH": "ac0062a82a086f6057d7962ea740a82072e62949b90af6195bfdf8f4d30af7d2",
+    "RUNTIME": "69aed1b5dfbb88b55059aca0290c56e3a84832eb4c3368a38f4243fac5aa4638",
+}
+CONTRACT_HASHES = {"2.0": V2_ORIGINAL_PROTECTED_HASHES, "2.1": V21_PROTECTED_HASHES, "2.2": V22_PROTECTED_HASHES, "2.3": V23_PROTECTED_HASHES}
 REQUIRED_RUNTIME_METHODS = {
     "initialize",
     "on_l3_snapshot",

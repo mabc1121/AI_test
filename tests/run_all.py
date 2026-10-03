@@ -2,7 +2,7 @@ from pathlib import Path
 import importlib.util, inspect, sys
 ROOT=Path(__file__).resolve().parents[1]; sys.path.insert(0,str(ROOT))
 modules=[]
-for filename in ('test_template.py','test_regressions.py'):
+for filename in ('test_template.py','test_regressions.py','test_aitest.py'):
     spec=importlib.util.spec_from_file_location(filename[:-3],Path(__file__).with_name(filename)); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m); modules.append(m)
 failed=[]
 for m in modules:

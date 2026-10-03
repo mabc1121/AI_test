@@ -6,7 +6,7 @@ each with its own protected paper broker, in one pass. Decisions are throttled
 (decide_every_ms), so replay is a fast *screen*; live shadow testing confirms.
 """
 from __future__ import annotations
-import dataclasses, gzip, json, math, random, time, zlib
+import dataclasses, gzip, json, math, random, re, time, zlib
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -114,17 +114,20 @@ def recorded_span(directory) -> dict:
 
 def pair_trades(executions: list[dict]) -> list[dict]:
     """Turn ENTER/EXIT execution records into round-trip trades with net $ and bps."""
-    out=[]; open_=None
+    out=[]; opened={}
     for x in executions:
-        if str(x["action"]).startswith("ENTER"): open_=x; continue
-        if x["action"]=="EXIT" and open_:
+        key=x.get("position_id") or x.get("symbol") or "_"   # contract 2.3: several positions open at once, keyed by id
+        if str(x["action"]).startswith("ENTER"): opened[key]=x; continue
+        open_=opened.pop(key,None) if x["action"]=="EXIT" else None
+        if open_:
             notional=float(open_["fill_price"])*float(open_["size"]); side="long" if open_["action"]=="ENTER_LONG" else "short"
-            reason=str(open_["reason"]); setup="reversal" if "reversal" in reason else ("continuation" if "continuation" in reason else "other")
+            reason=str(open_["reason"]); slot=re.match(r"(H\d+)_",reason)
+            setup=slot.group(1) if slot else ("reversal" if "reversal" in reason else ("continuation" if "continuation" in reason else "other"))
             net=float(x["realized_pnl"]); fees=float(open_["fee_usd"])+float(x["fee_usd"])
             out.append({"entry_ms":int(open_["timestamp_ms"]),"exit_ms":int(x["timestamp_ms"]),"side":side,"setup":setup,"size":float(open_["size"]),
                         "entry":float(open_["fill_price"]),"exit":float(x["fill_price"]),"exit_reason":str(x["reason"]),"fees":fees,"net":net,
-                        "notional":notional,"net_bps":net/notional*1e4 if notional else 0.0,"hold_s":(int(x["timestamp_ms"])-int(open_["timestamp_ms"]))/1000})
-            open_=None
+                        "notional":notional,"net_bps":net/notional*1e4 if notional else 0.0,"hold_s":(int(x["timestamp_ms"])-int(open_["timestamp_ms"]))/1000,
+                        "slippage_bps":float(x.get("slippage_bps") or 0.0),"position_id":open_.get("position_id")})
     return out
 
 def _group(trades, key):

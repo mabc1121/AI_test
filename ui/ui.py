@@ -374,7 +374,7 @@ class App:
         strategies=['champion']+[p['id'] for p in self.think.pool() if p.get('status') in ('SHADOW','PASS_PENDING')]
         opt=lambda name,cur,vals:f'<select name="{name}" onchange="this.form.submit()">'+''.join(f'<option value="{v}"{" selected" if v==cur else ""}>{esc(l)}</option>' for v,l in vals)+'</select>'
         form=('<form method="get" class="filters">'+opt('s',sel,[(x,x.title() if x=='champion' else x) for x in strategies])+opt('d',days,[('1','Today'),('7','7 days'),('30','30 days'),('all','All time')])
-              +opt('side',side,[('all','All sides'),('long','Long'),('short','Short')])+opt('setup',setup,[('all','All setups'),('reversal','Reversal'),('continuation','Continuation')])
+              +opt('side',side,[('all','All sides'),('long','Long'),('short','Short')])+opt('setup',setup,[('all','All setups')]+[(x,x.title()) for x in sorted({t['setup'] for t in self._strategy_trades(sel)})])
               +opt('r',res,[('all','All results'),('win','Wins'),('loss','Losses')])+'</form>')
         s=stats_of(tr)
         strip=('<div class="card strip">'+''.join(f'<div><small class="muted">{l}</small><b class="{c}">{v}</b></div>' for l,v,c in [
@@ -413,7 +413,7 @@ class App:
               +self.kvrow('Exit',f'{t["exit"]:,.2f} · {esc(t["exit_reason"].replace("_"," "))}')
               +(self.kvrow('Best / worst during trade',f'<span class="ok">{ex["mfe_bps"]:+.1f}</span> / <span class="bad">{ex["mae_bps"]:+.1f}</span> bps') if ex.get('mfe_bps') is not None and pts else self.kvrow('Best / worst during trade','not recorded'))
               +(self.kvrow('Captured of best move',f'{ex["captured_pct"]:.0f}%') if ex.get('captured_pct') is not None and pts else ''))
-        costs='<h3>Costs</h3>'+self.kvrow('Fees in + out',f'${t["fees"]:.2f}')+self.kvrow('Slippage (paper)','1 bps each side')
+        costs='<h3>Costs</h3>'+self.kvrow('Fees in + out',f'${t["fees"]:.2f}')+self.kvrow('Slippage (paper)',f'{t.get("slippage_bps",1.0):g} bps each side')
         return (f'<div class="card"><div class="row"><h2>{t["side"].title()} · {esc(t["setup"])}</h2><b class="{"ok" if t["net"]>0 else "bad"}">${t["net"]:+,.2f} · {t["net_bps"]:+.1f} bps</b></div>'
                 f'<small class="muted">{esc(sel)} · {time.strftime("%d %b %H:%M:%S",time.gmtime(t["entry_ms"]/1000))} → {time.strftime("%H:%M:%S",time.gmtime(t["exit_ms"]/1000))} · {t["hold_s"]/60:.1f} min · {t["size"]:.3f} BTC</small>'
                 f'{chart}<div class="grid">{("<div>"+why+"</div>") if why else ""}<div>{plan}</div><div>{costs}</div></div></div>')

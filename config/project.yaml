@@ -1,7 +1,7 @@
 {
   "project": {
-    "name": "reusable-trading-template",
-    "version": "2.0.0"
+    "name": "ai-test",
+    "version": "1.0.0"
   },
   "mode": {
     "paper_only": true

@@ -18,3 +18,13 @@ Headline results (details in the reports):
 * Order-level (level-3) features add nothing measurable to direction, with or without a predicted big move.
 
 The app is the next step those reports ask for: a long, verified forward test of the frozen models on Bitfinex.
+
+## From research to the app
+
+| script | what it does |
+|---|---|
+| `bitfinex/export_models.py` | Exports the frozen bundles (ALL feature group, gradient boosting) to `trade/aitest_models.json.gz`: trees as arrays, the feature order, training priors, and the entry thresholds as quantiles of the Bybit training distribution. It checks the exported trees against scikit-learn on Bybit and Bitfinex rows. |
+| `bitfinex/equivalence_test.py` | Replays the raw Bitfinex captures through the app's own `ScientificCore` and compares every minute bar, feature and prediction with the research pipeline (`bitfinex_replay.py` → `research.py bars2` → `build_features` → scikit-learn). |
+| `bitfinex/live_replay_smoke.py` | Runs the real trade engine (protected R0 layer, checksum gate, broker, checkpoints, recorder, prediction log) on the raw captures at their original timestamps, including a restart with an outage. |
+| `bitfinex/evaluate_live.py` | Scores the app's prediction log per horizon: direction AUC, big-move AUC, volatility R², and the signal trades' gross and net P&L, positive days and daily t at any cost. |
+| `reports/app_validation/` | Results of the equivalence test and the platform replay. |
