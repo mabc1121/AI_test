@@ -52,7 +52,7 @@
     "book_precision": "R0",
     "book_frequency": "F0",
     "book_length": 250,
-    "stale_seconds": 5.0,
+    "stale_seconds": 15.0,
     "reconnect_max_seconds": 30
   }
 }

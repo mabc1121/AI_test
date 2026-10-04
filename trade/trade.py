@@ -259,7 +259,7 @@ DEFAULT_MARKET_CONFIG = {
     "book_precision": "R0",
     "book_frequency": "F0",
     "book_length": 250,
-    "stale_seconds": 5.0,
+    "stale_seconds": 15.0,
     "reconnect_max_seconds": 30,
 }
 
@@ -371,7 +371,7 @@ class _ProtectedMarketInput:
         return CleanMarketEvent(p.kind,"bitfinex_public_ws",self.symbol,p.channel,p.channel_id,p.sequence,p.recv_time_ns,p.recv_time_ns//1_000_000,p.exchange_time_ms,p.payload,p.raw_message,dict(p.protected_context),p.best_bid,p.best_ask,mid,spread,integ)
     def release_ready(self)->list[CleanMarketEvent]:
         if self.pending_book or not self.integrity().valid or not self.pending: return []
-        if time.time_ns()-self.pending[0].recv_time_ns > 5_000_000_000:
+        if time.time_ns()-self.pending[0].recv_time_ns > 15_000_000_000:
             self.pending.clear(); self.last_error="checksum_deadline_exceeded"; raise L3IntegrityError(self.last_error)
         batch=self.pending; self.pending=[]; return [self._clean(p) for p in batch]
     def snapshot(self,entries,sequence,recv_ns,channel_id=None,raw_message=None)->list[CleanMarketEvent]:
@@ -399,7 +399,7 @@ class _ProtectedMarketInput:
         self.pending.append(cs)
         return self.release_ready()
     def _guard_pending(self)->None:
-        if len(self.pending)>10_000 or (self.pending and time.time_ns()-self.pending[0].recv_time_ns>5_000_000_000):
+        if len(self.pending)>10_000 or (self.pending and time.time_ns()-self.pending[0].recv_time_ns>15_000_000_000):
             self.pending.clear(); self.last_error="pending_evidence_limit"; raise L3IntegrityError(self.last_error)
 
 class _BitfinexPublicFeed:
@@ -438,7 +438,7 @@ class _BitfinexPublicFeed:
             await ws.send(json.dumps({"event":"subscribe","channel":"book","symbol":symbol,"prec":"R0","freq":str(self.config.get("book_frequency","F0")),"len":str(self.config.get("book_length",250))}))
             await ws.send(json.dumps({"event":"subscribe","channel":"trades","symbol":symbol}))
             while True:
-                raw=await asyncio.wait_for(ws.recv(),timeout=10)
+                raw=await asyncio.wait_for(ws.recv(),timeout=20)
                 self._handle_raw(raw,time.time_ns())
     async def _run_tt_input(self,websockets)->None:
         # tt_input raw mode: one tt_input-created starting snapshot (labelled, never presented as an exchange message),
@@ -448,7 +448,7 @@ class _BitfinexPublicFeed:
             self.channels.clear(); self.runtime.input.reset_connection()
             await ws.send(json.dumps({"op":"subscribe","feed":feed,"mode":"raw"}))
             while True:
-                msg=json.loads(await asyncio.wait_for(ws.recv(),timeout=10)); kind=msg.get("type"); recv_ns=time.time_ns()
+                msg=json.loads(await asyncio.wait_for(ws.recv(),timeout=20)); kind=msg.get("type"); recv_ns=time.time_ns()
                 if kind=="raw": self._handle_raw(msg["m"],recv_ns)
                 elif kind=="snapshot":
                     # Verified like any snapshot: nothing is released until the exchange's next checksum matches it.
@@ -1110,7 +1110,7 @@ class TradeConfig:
     h60_enabled: int = 1
     h120_enabled: int = 1
     h240_enabled: int = 1
-    max_positions_per_horizon: int = 1   # > 1 lets a slot open a new position every minute the rule fires
+    max_positions_per_horizon: int = 10  # > 1 lets a slot open a new position every minute the rule fires (owner: cap 10)
 
     # Entry rule, as quantiles of the Bybit TRAINING distribution of each model (fixed before any Bitfinex data).
     hit_quantile: float = 0.6667         # big-move probability in its top tercile ...
